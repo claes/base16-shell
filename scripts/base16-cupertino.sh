@@ -43,6 +43,9 @@ elif [ "${TERM%%-*}" = "linux" ]; then
   put_template() { [ $1 -lt 16 ] && printf "\e]P%x%s" $1 $(echo $2 | sed 's/\///g'); }
   put_template_var() { true; }
   put_template_custom() { true; }
+elif [[ $- != *i* ]]; then
+  # non-interactive
+  alias printf=/bin/false
 else
   put_template() { printf '\033]4;%d;rgb:%s\033\\' $@; }
   put_template_var() { printf '\033]%d;rgb:%s\033\\' $@; }

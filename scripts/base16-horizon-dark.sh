@@ -11,7 +11,7 @@ color04="DF/52/73" # Base 0D - Blue
 color05="B0/72/D1" # Base 0E - Magenta
 color06="24/A8/B4" # Base 0C - Cyan
 color07="CB/CE/D0" # Base 05 - White
-color08="67/6A/8D" # Base 03 - Bright Black
+color08="6F/6F/70" # Base 03 - Bright Black
 color09=$color01 # Base 08 - Bright Red
 color10=$color02 # Base 0B - Bright Green
 color11=$color03 # Base 0A - Bright Yellow
@@ -23,7 +23,7 @@ color16="E5/8D/7D" # Base 09
 color17="E4/A3/82" # Base 0F
 color18="23/25/30" # Base 01
 color19="2E/30/3E" # Base 02
-color20="CE/D1/D0" # Base 04
+color20="9D/A0/A2" # Base 04
 color21="DC/DF/E4" # Base 06
 color_foreground="CB/CE/D0" # Base 05
 color_background="1C/1E/26" # Base 00
@@ -43,6 +43,9 @@ elif [ "${TERM%%-*}" = "linux" ]; then
   put_template() { [ $1 -lt 16 ] && printf "\e]P%x%s" $1 $(echo $2 | sed 's/\///g'); }
   put_template_var() { true; }
   put_template_custom() { true; }
+elif [[ $- != *i* ]]; then
+  # non-interactive
+  alias printf=/bin/false
 else
   put_template() { printf '\033]4;%d;rgb:%s\033\\' $@; }
   put_template_var() { printf '\033]%d;rgb:%s\033\\' $@; }
